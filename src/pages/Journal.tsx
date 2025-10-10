@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import FloatingHearts from "@/components/FloatingHearts";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { BookHeart, Plus } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { BookHeart, Plus, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
 
-interface JournalEntry {
-  id: string;
-  author: string;
-  mood: string;
-  text: string;
-  date: string;
-  reactions?: string[];
-}
+type JournalEntry = Database["public"]["Tables"]["journal_entries"]["Row"] & {
+  profiles: { nickname: string } | null;
+  journal_replies: Array<{
+    id: string;
+    content: string;
+    created_at: string;
+    profiles: { nickname: string } | null;
+  }>;
+};
 
 const moods = [
   { emoji: "😊", label: "Happy" },
@@ -25,51 +30,113 @@ const moods = [
   { emoji: "🎉", label: "Excited" },
 ];
 
-const sampleEntries: JournalEntry[] = [
-  {
-    id: "1",
-    author: "Me",
-    mood: "💕",
-    text: "Today I was just thinking about how lucky I am to have you in my life. Every moment with you feels like a blessing.",
-    date: "2024-10-09",
-    reactions: ["❤️", "🥰"],
-  },
-  {
-    id: "2",
-    author: "Her",
-    mood: "😊",
-    text: "I love our little morning coffee ritual. It's the best way to start my day — with you by my side.",
-    date: "2024-10-08",
-    reactions: ["☕", "💕"],
-  },
-];
-
 const Journal = () => {
-  const [entries, setEntries] = useState<JournalEntry[]>(sampleEntries);
+  const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [isWriting, setIsWriting] = useState(false);
   const [newEntry, setNewEntry] = useState("");
   const [selectedMood, setSelectedMood] = useState(moods[0].emoji);
+  const [replyText, setReplyText] = useState<{ [key: string]: string }>({});
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    if (!newEntry.trim()) return;
+  useEffect(() => {
+    checkAuth();
+    loadEntries();
+  }, []);
 
-    const entry: JournalEntry = {
-      id: Date.now().toString(),
-      author: "Me",
-      mood: selectedMood,
-      text: newEntry,
-      date: new Date().toISOString().split("T")[0],
-      reactions: [],
-    };
+  const checkAuth = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session) {
+      navigate("/auth");
+      return;
+    }
 
-    setEntries([entry, ...entries]);
+    setCurrentUserId(session.user.id);
+  };
+
+  const loadEntries = async () => {
+    const { data, error } = await supabase
+      .from("journal_entries")
+      .select(`
+        *,
+        profiles:author_id (nickname),
+        journal_replies (
+          id,
+          content,
+          created_at,
+          profiles:author_id (nickname)
+        )
+      `)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      toast({
+        title: "Error loading entries",
+        description: error.message,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setEntries(data || []);
+  };
+
+  const handleSubmit = async () => {
+    if (!newEntry.trim() || !currentUserId) return;
+
+    const { error } = await supabase
+      .from("journal_entries")
+      .insert({
+        author_id: currentUserId,
+        mood: selectedMood,
+        content: newEntry,
+      });
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+      return;
+    }
+
     setNewEntry("");
     setIsWriting(false);
-    
+    loadEntries();
     toast({
       title: "Entry saved! 💕",
       description: "Your memory has been added to our journal.",
+    });
+  };
+
+  const handleReply = async (entryId: string) => {
+    const reply = replyText[entryId];
+    if (!reply?.trim() || !currentUserId) return;
+
+    const { error } = await supabase
+      .from("journal_replies")
+      .insert({
+        entry_id: entryId,
+        author_id: currentUserId,
+        content: reply,
+      });
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setReplyText({ ...replyText, [entryId]: "" });
+    loadEntries();
+    toast({
+      title: "Reply added! 💬",
     });
   };
 
@@ -90,7 +157,6 @@ const Journal = () => {
         </div>
 
         <div className="max-w-3xl mx-auto space-y-6">
-          {/* Write New Entry */}
           {!isWriting ? (
             <Button
               onClick={() => setIsWriting(true)}
@@ -103,7 +169,6 @@ const Journal = () => {
             <Card className="gradient-card shadow-dreamy border-0 p-6 md:p-8 animate-scale-in">
               <h3 className="font-display text-xl font-semibold mb-4">New Journal Entry</h3>
               
-              {/* Mood Selector */}
               <div className="mb-4">
                 <p className="text-sm font-medium mb-3">How are you feeling?</p>
                 <div className="flex flex-wrap gap-2">
@@ -152,7 +217,6 @@ const Journal = () => {
             </Card>
           )}
 
-          {/* Entries List */}
           <div className="space-y-6">
             {entries.map((entry, index) => (
               <Card
@@ -166,26 +230,67 @@ const Journal = () => {
                       {entry.mood}
                     </div>
                     <div>
-                      <p className="font-display font-semibold">{entry.author}</p>
-                      <p className="text-sm text-foreground/60">{entry.date}</p>
+                      <p className="font-display font-semibold">
+                        {entry.profiles?.nickname || "Unknown"} {entry.profiles?.nickname === "Bubu" ? "❤️" : "💙"}
+                      </p>
+                      <p className="text-sm text-foreground/60">
+                        {new Date(entry.created_at).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                <p className="text-foreground/80 leading-relaxed mb-4">{entry.text}</p>
+                <p className="text-foreground/80 leading-relaxed mb-4">{entry.content}</p>
 
-                {entry.reactions && entry.reactions.length > 0 && (
-                  <div className="flex gap-2 pt-4 border-t border-border/50">
-                    {entry.reactions.map((reaction, i) => (
-                      <span
-                        key={i}
-                        className="px-3 py-1 bg-white/40 rounded-full text-sm"
-                      >
-                        {reaction}
-                      </span>
+                {entry.journal_replies && entry.journal_replies.length > 0 && (
+                  <div className="space-y-3 mb-4 pt-4 border-t border-border/50">
+                    {entry.journal_replies.map((reply) => (
+                      <div key={reply.id} className="bg-white/30 rounded-lg p-3">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="font-display font-semibold text-sm">
+                            {reply.profiles?.nickname || "Unknown"}
+                          </span>
+                          <span className="text-xs text-foreground/60">
+                            {new Date(reply.created_at).toLocaleDateString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                            })}
+                          </span>
+                        </div>
+                        <p className="text-sm text-foreground/80">{reply.content}</p>
+                      </div>
                     ))}
                   </div>
                 )}
+
+                <div className="pt-4 border-t border-border/50">
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Write a reply..."
+                      value={replyText[entry.id] || ""}
+                      onChange={(e) => setReplyText({ ...replyText, [entry.id]: e.target.value })}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && !e.shiftKey) {
+                          e.preventDefault();
+                          handleReply(entry.id);
+                        }
+                      }}
+                      className="bg-white/40 border-border/50 focus:bg-white/60 transition-smooth rounded-xl"
+                    />
+                    <Button
+                      onClick={() => handleReply(entry.id)}
+                      size="sm"
+                      className="gap-2"
+                      disabled={!replyText[entry.id]?.trim()}
+                    >
+                      <Send className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
               </Card>
             ))}
           </div>
