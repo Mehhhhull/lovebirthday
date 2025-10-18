@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Heart, Clock, Sparkles, BookHeart, LogOut } from "lucide-react";
+import { Heart, Clock, Sparkles, BookHeart, LogOut, Smile, Target } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Navigation = () => {
@@ -10,6 +10,8 @@ const Navigation = () => {
     { to: "/timeline", icon: Clock, label: "Our Journey" },
     { to: "/her", icon: Sparkles, label: "Her Page" },
     { to: "/journal", icon: BookHeart, label: "Journal" },
+    { to: "/moods", icon: Smile, label: "Moods" },
+    { to: "/bucket-list", icon: Target, label: "Bucket List" },
   ];
 
   return (

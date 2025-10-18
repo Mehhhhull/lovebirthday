@@ -8,6 +8,8 @@ import Timeline from "./pages/Timeline";
 import HerPage from "./pages/HerPage";
 import Journal from "./pages/Journal";
 import Auth from "./pages/Auth";
+import MoodTracker from "./pages/MoodTracker";
+import BucketList from "./pages/BucketList";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +25,8 @@ const App = () => (
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/her" element={<HerPage />} />
           <Route path="/journal" element={<Journal />} />
+          <Route path="/moods" element={<MoodTracker />} />
+          <Route path="/bucket-list" element={<BucketList />} />
           <Route path="/auth" element={<Auth />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
