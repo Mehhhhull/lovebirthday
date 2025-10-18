@@ -12,6 +12,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState<"Bubu" | "Mimi">("Bubu");
@@ -35,6 +36,33 @@ const Auth = () => {
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth`,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Check your email! 📧",
+        description: "We've sent you a password reset link.",
+      });
+      setIsForgotPassword(false);
+    } catch (error: any) {
+      toast({
+        title: "Oops!",
+        description: error.message || "Something went wrong.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -110,8 +138,8 @@ const Auth = () => {
           if (profileError) throw profileError;
 
           toast({
-            title: "Welcome! ✨",
-            description: `You're now part of our love sanctuary as ${nickname}!`,
+            title: "Check your email! ✨",
+            description: "We've sent you a verification link to complete your signup.",
           });
         }
       }
@@ -139,11 +167,11 @@ const Auth = () => {
             Our Little World
           </h1>
           <p className="text-foreground/70 font-display">
-            {isLogin ? "Welcome back! 💕" : "Join our love sanctuary ✨"}
+            {isForgotPassword ? "Reset your password 🔑" : isLogin ? "Welcome back! 💕" : "Join our love sanctuary ✨"}
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={isForgotPassword ? handleForgotPassword : handleSubmit} className="space-y-6">
           <div className="space-y-2">
             <Label htmlFor="email" className="font-display">Email</Label>
             <Input
@@ -157,21 +185,23 @@ const Auth = () => {
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="password" className="font-display">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="bg-white/40 border-border/50 focus:bg-white/60 transition-smooth rounded-xl"
-              required
-              minLength={6}
-            />
-          </div>
+          {!isForgotPassword && (
+            <div className="space-y-2">
+              <Label htmlFor="password" className="font-display">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="bg-white/40 border-border/50 focus:bg-white/60 transition-smooth rounded-xl"
+                required
+                minLength={6}
+              />
+            </div>
+          )}
 
-          {!isLogin && (
+          {!isLogin && !isForgotPassword && (
             <div className="space-y-3">
               <Label className="font-display">Choose your nickname 💕</Label>
               <RadioGroup value={nickname} onValueChange={(value) => setNickname(value as "Bubu" | "Mimi")}>
@@ -192,16 +222,31 @@ const Auth = () => {
             disabled={loading}
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-display rounded-xl py-6 shadow-soft hover:shadow-dreamy transition-smooth disabled:opacity-50"
           >
-            {loading ? "Loading..." : isLogin ? "Sign In 💕" : "Create Account ✨"}
+            {loading ? "Loading..." : isForgotPassword ? "Send Reset Link 📧" : isLogin ? "Sign In 💕" : "Create Account ✨"}
           </Button>
         </form>
 
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center space-y-2">
+          {!isForgotPassword && isLogin && (
+            <button
+              type="button"
+              onClick={() => setIsForgotPassword(true)}
+              className="text-sm text-foreground/70 hover:text-foreground transition-smooth font-display block w-full"
+            >
+              Forgot password? 🔑
+            </button>
+          )}
           <button
-            onClick={() => setIsLogin(!isLogin)}
-            className="text-sm text-foreground/70 hover:text-foreground transition-smooth font-display"
+            type="button"
+            onClick={() => {
+              setIsForgotPassword(false);
+              setIsLogin(!isLogin);
+            }}
+            className="text-sm text-foreground/70 hover:text-foreground transition-smooth font-display block w-full"
           >
-            {isLogin
+            {isForgotPassword
+              ? "Back to sign in"
+              : isLogin
               ? "Don't have access? Create an account"
               : "Already have access? Sign in"}
           </button>
