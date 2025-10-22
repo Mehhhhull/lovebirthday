@@ -4,14 +4,20 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  server: {
-    host: "::",
-    port: 8080
-  },
   plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src")
+    }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui-vendor': ['@radix-ui/react-icons', '@radix-ui/react-slot']
+        }
+      }
     }
   }
 });
