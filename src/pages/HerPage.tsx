@@ -4,18 +4,12 @@ import { Card } from "@/components/ui/card";
 import { Sparkles, Cake, Music, Coffee, Heart } from "lucide-react";
 
 const HerPage = () => {
-  const favorites = [
-    { icon: Coffee, label: "Favorite Drink", value: "Sweet iced coffee ☕" },
-    { icon: Music, label: "Favorite Music", value: "Lo-fi & acoustic vibes 🎵" },
-    { icon: Cake, label: "Favorite Food", value: "Anything sweet & pastries 🧁" },
-  ];
-
   const quirks = [
-    "Her laugh lights up the entire room ✨",
-    "She hums when she's concentrating 🎶",
-    "Coffee tastes better when she makes it ☕",
-    "She has the warmest hugs in the world 🤗",
-    "Her smile is my favorite view 💕",
+    " i fuckingggg love youuu baby✨",
+    "apki height wah wah *skeleton emoji* 🎶",
+    "both tharki and dharmik with u hehehe ☕",
+    "yourrrrrrrr gaaaaaaal lovely  🤗",
+    "yourrrrr eyessss <3 💕",
   ];
 
   const gallery = [
@@ -29,7 +23,7 @@ const HerPage = () => {
     <div className="min-h-screen relative">
       <FloatingHearts />
       <Navigation />
-      
+
       <main className="container mx-auto px-4 pt-24 pb-16 relative z-10">
         <div className="text-center mb-16 animate-fade-in-up">
           <Sparkles className="w-12 h-12 text-primary mx-auto mb-4 animate-float" />
@@ -51,36 +45,61 @@ const HerPage = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <h2 className="font-display text-3xl font-bold mb-2">My Girlfriend 💕</h2>
+            <h2 className="font-display text-3xl font-bold mb-2">
+              My Girlfriend 💕
+            </h2>
             <p className="text-foreground/70 mb-6">
               <Cake className="w-4 h-4 inline mr-2" />
-              Birthday: [Her Birthday]
+              Birthday: 23/10/2005
             </p>
             <p className="text-lg text-foreground/80 max-w-2xl mx-auto leading-relaxed">
-              She's the kind of person who makes ordinary moments extraordinary. Her kindness, 
-              her laughter, her dreams — everything about her makes my world brighter. 
-              I'm endlessly grateful for every second we share together.
+              u are a kind of person like a mixed aachar haha, sweet, sour,
+              spicy and a little salty but all in one u r the best thing that
+              ever happened to me i love u so much my baby. yeah extra angry but
+              jaise b hooo just mine *angry cat emoji*
             </p>
           </Card>
 
-          {/* Favorites Grid */}
-          <div className="grid md:grid-cols-3 gap-6 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-            {favorites.map((fav, index) => (
-              <Card key={index} className="gradient-card shadow-soft border-0 p-6 text-center hover:shadow-dreamy transition-smooth group">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <fav.icon className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-display font-semibold mb-2">{fav.label}</h3>
-                <p className="text-sm text-foreground/70">{fav.value}</p>
-              </Card>
-            ))}
+          {/* Special Dedications Grid */}
+          <div
+            className="grid md:grid-cols-2 gap-6 animate-fade-in-up"
+            style={{ animationDelay: "0.2s" }}
+          >
+            {/* Song Dedicated Card */}
+            <Card className="gradient-card shadow-soft border-0 p-6 text-center hover:shadow-dreamy transition-smooth group cursor-pointer">
+              <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <span className="text-3xl">🎵</span>
+              </div>
+              <h3 className="font-display font-semibold mb-2">
+                Song Dedicated to You
+              </h3>
+              <p className="text-sm text-foreground/70">
+                Listen to this special tune made just for you
+              </p>
+            </Card>
+
+            {/* Video Dedicated Card */}
+            <Card className="gradient-card shadow-soft border-0 p-6 text-center hover:shadow-dreamy transition-smooth group cursor-pointer">
+              <div className="w-16 h-16 rounded-full bg-secondary/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <span className="text-3xl">🎬</span>
+              </div>
+              <h3 className="font-display font-semibold mb-2">Video for You</h3>
+              <p className="text-sm text-foreground/70">
+                Watch this heartfelt video created only for you
+              </p>
+            </Card>
           </div>
 
           {/* Things I Love About Her */}
-          <Card className="gradient-card shadow-dreamy border-0 p-8 md:p-10 animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
+          <Card
+            className="gradient-card shadow-dreamy border-0 p-8 md:p-10 animate-fade-in-up"
+            style={{ animationDelay: "0.4s" }}
+          >
             <div className="flex items-center gap-3 mb-6">
               <Heart className="w-8 h-8 text-primary fill-primary" />
-              <h2 className="font-display text-2xl font-bold">Things I Love About Her</h2>
+              <h2 className="font-display text-2xl font-bold">
+                Things I Love About Her
+              </h2>
             </div>
             <div className="grid md:grid-cols-2 gap-4">
               {quirks.map((quirk, index) => (
@@ -96,7 +115,10 @@ const HerPage = () => {
           </Card>
 
           {/* Gallery */}
-          <div className="animate-fade-in-up" style={{ animationDelay: "0.6s" }}>
+          <div
+            className="animate-fade-in-up"
+            style={{ animationDelay: "0.6s" }}
+          >
             <h2 className="font-display text-2xl font-bold mb-6 text-center">
               <Sparkles className="w-6 h-6 inline mr-2 text-primary" />
               Her Cutest Moments
@@ -118,26 +140,32 @@ const HerPage = () => {
           </div>
 
           {/* Love Letter */}
-          <Card className="gradient-card shadow-dreamy border-0 p-8 md:p-10 animate-fade-in-up" style={{ animationDelay: "0.8s" }}>
-            <h2 className="font-display text-2xl font-bold mb-4 text-center">A Letter Just For You 💌</h2>
+          <Card
+            className="gradient-card shadow-dreamy border-0 p-8 md:p-10 animate-fade-in-up"
+            style={{ animationDelay: "0.8s" }}
+          >
+            <h2 className="font-display text-2xl font-bold mb-4 text-center">
+              A Letter Just For You 💌
+            </h2>
             <div className="prose prose-lg max-w-none text-foreground/80">
+              <p className="leading-relaxed mb-4">My dearest,</p>
               <p className="leading-relaxed mb-4">
-                My dearest,
+                Every day with you feels like a gift I never knew I was waiting
+                for. You've turned my world into something magical, something I
+                want to protect and cherish forever.
               </p>
               <p className="leading-relaxed mb-4">
-                Every day with you feels like a gift I never knew I was waiting for. You've turned 
-                my world into something magical, something I want to protect and cherish forever.
+                Your smile is my favorite sunrise. Your laughter is the melody I
+                never want to stop hearing. And your love — your beautiful,
+                gentle love — is home to me.
               </p>
               <p className="leading-relaxed mb-4">
-                Your smile is my favorite sunrise. Your laughter is the melody I never want to stop 
-                hearing. And your love — your beautiful, gentle love — is home to me.
-              </p>
-              <p className="leading-relaxed mb-4">
-                Thank you for being you. Thank you for choosing us. I promise to love you with 
-                everything I have, today and always.
+                Thank you for being you. Thank you for choosing us. I promise to
+                love you with everything I have, today and always.
               </p>
               <p className="leading-relaxed text-right">
-                Forever yours, 💕<br />
+                Forever yours, 💕
+                <br />
                 <span className="font-display font-semibold">[Your Name]</span>
               </p>
             </div>

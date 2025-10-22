@@ -41,7 +41,7 @@ const Index = () => {
             Welcome to Our Forever Place
           </h1>
           <p className="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto font-display">
-            Built just for us — a private sanctuary where our love story lives 💕
+            Built just for us — a private sanctuary where our love story lives neeche images are manifestation hehe💕
           </p>
         </div>
 
@@ -67,7 +67,7 @@ const Index = () => {
         </div>
 
         {/* Quick Links Grid */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.6s" }}>
+        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-7xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.6s" }}>
           <Card className="gradient-card p-6 shadow-soft hover:shadow-dreamy transition-smooth border-0 text-center group cursor-pointer">
             <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
               <span className="text-3xl">⏳</span>
@@ -90,6 +90,22 @@ const Index = () => {
             </div>
             <h3 className="font-display font-semibold text-lg mb-2">Our Journal</h3>
             <p className="text-sm text-foreground/70">Share thoughts & moments</p>
+          </Card>
+
+          <Card className="gradient-card p-6 shadow-soft hover:shadow-dreamy transition-smooth border-0 text-center group cursor-pointer">
+            <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+              <span className="text-3xl">🎯</span>
+            </div>
+            <h3 className="font-display font-semibold text-lg mb-2">Bucket List</h3>
+            <p className="text-sm text-foreground/70">Dreams we'll achieve together</p>
+          </Card>
+
+          <Card className="gradient-card p-6 shadow-soft hover:shadow-dreamy transition-smooth border-0 text-center group cursor-pointer">
+            <div className="w-16 h-16 rounded-full bg-secondary/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+              <span className="text-3xl">💝</span>
+            </div>
+            <h3 className="font-display font-semibold text-lg mb-2">Mood Board</h3>
+            <p className="text-sm text-foreground/70">Track our daily feelings</p>
           </Card>
         </div>
       </main>
