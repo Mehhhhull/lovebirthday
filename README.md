@@ -1,18 +1,13 @@
-# Welcome to your Lovable project
+# Love Story Haven
 
-## Project info
+A special place to document and cherish your love story.
 
-**URL**: https://lovable.dev/projects/41af87c5-3064-47f4-ac90-497fc8cb8c92
+## Features
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/41af87c5-3064-47f4-ac90-497fc8cb8c92) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
+- Journal entries
+- Mood tracking
+- Bucket list
+- Timeline view
 
 **Use your preferred IDE**
 

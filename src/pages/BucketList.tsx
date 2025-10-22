@@ -169,7 +169,7 @@ const BucketList = () => {
       <FloatingHearts />
       <Navigation />
 
-      <div className="container mx-auto px-4 py-8 max-w-4xl relative z-10">
+      <div className="container mx-auto px-4 pt-24 pb-8 max-w-4xl relative z-10">
         <div className="text-center mb-8 animate-fade-in">
           <h1 className="font-display text-4xl md:text-5xl font-bold mb-4 text-gradient">
             Our Bucket List 🎯
