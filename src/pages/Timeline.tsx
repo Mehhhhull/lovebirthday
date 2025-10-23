@@ -24,7 +24,7 @@ const milestones = [
     icon: Heart,
     title: "Love Portray",
     date: "13th May 2024",
-    description: "The moment our love bloomed fully into something beautiful and undeniable. When we both knew — this is forever.",
+    description: "The moment our love bloomed fully into something beautiful and undeniable. When we both knew — this is forever. :Ykw fuck it, I love you shubham😈",
     image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&q=80",
     color: "from-accent/20 to-primary/20",
   },
@@ -96,7 +96,7 @@ const Timeline = () => {
           <Card className="gradient-card p-8 shadow-soft border-0 max-w-2xl mx-auto">
             <Heart className="w-8 h-8 text-primary mx-auto mb-4 fill-primary animate-float" />
             <p className="font-display text-lg text-foreground/90">
-              And our story continues to unfold, one beautiful day at a time... 💕
+              And our eternal story continues to unfold, one beautiful day at a time... 💕 i love you mera raja beta
             </p>
           </Card>
         </div>
