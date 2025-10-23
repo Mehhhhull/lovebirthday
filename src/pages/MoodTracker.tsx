@@ -22,11 +22,11 @@ interface MoodEntry {
 
 const moodOptions = [
   { value: "happy", label: "Happy", icon: Smile, color: "text-yellow-500" },
-  { value: "loved", label: "Loved", icon: Heart, color: "text-pink-500" },
+  { value: "loved/horny[state]", label: "Loved", icon: Heart, color: "text-pink-500" },
   { value: "excited", label: "Excited", icon: Zap, color: "text-orange-500" },
   { value: "calm", label: "Calm", icon: Cloud, color: "text-blue-400" },
   { value: "neutral", label: "Neutral", icon: Meh, color: "text-gray-500" },
-  { value: "sad", label: "Sad", icon: Frown, color: "text-blue-600" },
+  { value: "sad/Angry[state]", label: "Sad", icon: Frown, color: "text-blue-600" },
 ];
 
 const MoodTracker = () => {
