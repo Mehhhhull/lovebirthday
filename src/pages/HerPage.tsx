@@ -46,7 +46,7 @@ const HerPage = () => {
               />
             </div>
             <h2 className="font-display text-3xl font-bold mb-2">
-              My Girlfriend 💕
+              My Cutu Putu 💕
             </h2>
             <p className="text-foreground/70 mb-6">
               <Cake className="w-4 h-4 inline mr-2" />
@@ -105,7 +105,7 @@ const HerPage = () => {
             <div className="flex items-center gap-3 mb-6">
               <Heart className="w-8 h-8 text-primary fill-primary" />
               <h2 className="font-display text-2xl font-bold">
-                Things I Love About Her
+                Things About You
               </h2>
             </div>
             <div className="grid md:grid-cols-2 gap-4">
@@ -155,16 +155,14 @@ const HerPage = () => {
               A Letter Just For You 💌
             </h2>
             <div className="prose prose-lg max-w-none text-foreground/80">
-              <p className="leading-relaxed mb-4">My dearest,</p>
+              <p className="leading-relaxed mb-4">My Girl,</p>
               <p className="leading-relaxed mb-4">
                 Every day with you feels like a gift I never knew I was waiting
-                for. You've turned my world into something magical, something I
-                want to protect and cherish forever.
+                for. The time and the nights and the moments i dont want to pass when i am with you(but you sleep💀),  I
+                want to protect and cherish and pamper you like a child foreverrr forever.
               </p>
               <p className="leading-relaxed mb-4">
-                Your smile is my favorite sunrise. Your laughter is the melody I
-                never want to stop hearing. And your love — your beautiful,
-                gentle love — is home to me.
+                Your voice is the biggest therapy for me. I hope betuu you use this website and loved it and use the features so that i can track you 😈your emotions. I hopeee yeh chotu sa efforts apko pasand aaayega bubu. this is now open source,  features add hote rahenge hehe
               </p>
               <p className="leading-relaxed mb-4">
                 Thank you for being you. Thank you for choosing us. I promise to
@@ -173,7 +171,7 @@ const HerPage = () => {
               <p className="leading-relaxed text-right">
                 Forever yours, 💕
                 <br />
-                <span className="font-display font-semibold">[Your Name]</span>
+                <span className="font-display font-semibold">Bubu</span>
               </p>
             </div>
           </Card>
