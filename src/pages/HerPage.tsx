@@ -65,18 +65,25 @@ const HerPage = () => {
             className="grid md:grid-cols-2 gap-6 animate-fade-in-up"
             style={{ animationDelay: "0.2s" }}
           >
-            {/* Song Dedicated Card */}
-            <Card className="gradient-card shadow-soft border-0 p-6 text-center hover:shadow-dreamy transition-smooth group cursor-pointer">
-              <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <span className="text-3xl">🎵</span>
-              </div>
-              <h3 className="font-display font-semibold mb-2">
-                Song Dedicated to You
-              </h3>
-              <p className="text-sm text-foreground/70">
-                Listen to this special tune made just for you
-              </p>
-            </Card>
+            {/* ✅ Song Dedicated Card with Clickable Link */}
+            <a
+              href="https://open.spotify.com/playlist/1Qkdi37r8CsM8bER179IMz?si=kSkjXVH9TkOw05e8w05fgQ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="no-underline"
+            >
+              <Card className="gradient-card shadow-soft border-0 p-6 text-center hover:shadow-dreamy transition-smooth group cursor-pointer">
+                <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <span className="text-3xl">🎵</span>
+                </div>
+                <h3 className="font-display font-semibold mb-2">
+                  Song Dedicated to You
+                </h3>
+                <p className="text-sm text-foreground/70">
+                  Listen to this special tune made just for you
+                </p>
+              </Card>
+            </a>
 
             {/* Video Dedicated Card */}
             <Card className="gradient-card shadow-soft border-0 p-6 text-center hover:shadow-dreamy transition-smooth group cursor-pointer">
