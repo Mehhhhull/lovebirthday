@@ -130,7 +130,7 @@ const Index = () => {
 
           <Card 
             className="gradient-card p-6 shadow-soft hover:shadow-dreamy transition-smooth border-0 text-center group cursor-pointer"
-            onClick={() => navigate('/mood-tracker')}
+            onClick={() => navigate('/moods')}
           >
             <div className="w-16 h-16 rounded-full bg-secondary/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
               <span className="text-3xl">💝</span>
