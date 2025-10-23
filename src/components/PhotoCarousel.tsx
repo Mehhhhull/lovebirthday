@@ -2,31 +2,18 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 
-interface Photo {
-  url: string;
-  caption: string;
-}
+const PhotoCarousel = ({ images }) => {
+  // Pair each image with a cute caption
+  const photos = images.map((url, i) => ({
+    url,
+    caption: [
+      "Our magical moments together 💕",
+      "Forever creating memories ✨",
+      "You and me against the world 🌍",
+      "Every day is better with you 🌸",
+    ][i % 4],
+  }));
 
-const photos: Photo[] = [
-  {
-    url: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800&q=80",
-    caption: "Our magical moments together 💕"
-  },
-  {
-    url: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&q=80",
-    caption: "Forever creating memories ✨"
-  },
-  {
-    url: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&q=80",
-    caption: "You and me against the world 🌍"
-  },
-  {
-    url: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=800&q=80",
-    caption: "Every day is better with you 🌸"
-  },
-];
-
-const PhotoCarousel = () => {
   const [current, setCurrent] = useState(0);
 
   const next = () => setCurrent((current + 1) % photos.length);
@@ -62,6 +49,7 @@ const PhotoCarousel = () => {
         ))}
       </div>
 
+      {/* Navigation Buttons */}
       <Button
         variant="ghost"
         size="icon"
@@ -80,6 +68,7 @@ const PhotoCarousel = () => {
         <ChevronRight className="w-6 h-6" />
       </Button>
 
+      {/* Dots */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
         {photos.map((_, index) => (
           <button
